@@ -8,18 +8,20 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #e8f5e9; /* helles Grün */
+    background-color: #f0fdf4; /* helles Grün */
     color: #1b4332; /* dunkles Grün */
   }
   a {
-    color: #2a7f62; /* blaugrün */
+    color: #2563eb; /* blau */
     text-decoration: none;
   }
   a:hover {
     text-decoration: underline;
   }
+
+  /* Navigation */
   nav {
-    background-color: #14532d; /* dunkelgrün */
+    background-color: #1d3557; /* dunkles Blau */
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -31,26 +33,40 @@
   nav .logo {
     font-weight: bold;
     font-size: 1.5rem;
-    color: #a7f3d0; /* helles grün */
-    letter-spacing: 1px;
+    color: #a7f3d0; /* hellgrün */
   }
   nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     gap: 1.5rem;
-  }
-  nav ul li {
-    cursor: pointer;
-    font-weight: 600;
+    margin: 0;
+    padding: 0;
   }
   nav ul li a {
     color: #a7f3d0;
+    font-weight: 600;
   }
 
+  /* Hero-Bereich */
+  .hero {
+    background: linear-gradient(to right, #1d3557, #2a7f62);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  /* Container */
   .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
   }
@@ -58,52 +74,30 @@
   section {
     margin-bottom: 2.5rem;
   }
-
-  h1, h2 {
-    color: #14532d;
-    margin-bottom: 0.8rem;
+  h2 {
+    color: #1d3557;
   }
 
-  #welcome p, #about p {
-    font-size: 1.1rem;
-    line-height: 1.5;
-  }
-
-  #rules ul {
-    list-style: disc inside;
-    color: #1b4332;
-  }
-  #rules ul li {
-    margin-bottom: 0.5rem;
-  }
-
-  /* Entbann-Antrag - klappt aus */
-  #entbannForm {
-    background-color: #d1fae5; /* sehr hellgrün */
-    border: 1px solid #14532d;
-    padding: 1.5rem;
+  /* Karten-Style */
+  .card {
+    background: white;
     border-radius: 8px;
-    max-width: 500px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     margin-top: 1rem;
-    display: none;
   }
 
-  #entbannForm input,
-  #entbannForm textarea {
+  .card input,
+  .card textarea {
     width: 100%;
     padding: 0.6rem;
     margin-bottom: 1rem;
     border-radius: 4px;
-    border: 1px solid #14532d;
+    border: 1px solid #ccc;
     font-size: 1rem;
     font-family: inherit;
   }
-  #entbannForm input::placeholder,
-  #entbannForm textarea::placeholder {
-    color: #6b7280;
-    font-style: italic;
-  }
-  #entbannForm button {
+  .card button {
     background-color: #2a7f62;
     border: none;
     color: white;
@@ -112,27 +106,26 @@
     font-weight: 600;
     cursor: pointer;
   }
-  #entbannForm button:hover {
+  .card button:hover {
     background-color: #1f5c44;
   }
 
-  /* Toggle Link */
-  #toggleEntbann {
-    color: #2a7f62;
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 0.5rem;
-  }
-
+  /* Footer */
   footer {
     text-align: center;
     padding: 1rem;
-    background-color: #14532d;
+    background-color: #1d3557;
     color: #a7f3d0;
     font-size: 0.9rem;
   }
 
+  /* Toggle Link */
+  .toggle-link {
+    color: #2563eb;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+  }
 </style>
 </head>
 <body>
@@ -140,107 +133,103 @@
 <nav>
   <div class="logo">Emergency Nord</div>
   <ul>
-    <li><a href="#welcome">Willkommen</a></li>
-    <li><a href="#about">Über das Spiel</a></li>
+    <li><a href="#about">Über uns</a></li>
     <li><a href="#rules">Regeln</a></li>
-    <li><a href="https://discord.gg/3btR6kzq" target="_blank" rel="noopener noreferrer">Discord</a></li>
+    <li><a href="#forms">Formulare</a></li>
+    <li><a href="https://discord.gg/3btR6kzq" target="_blank">Discord</a></li>
   </ul>
 </nav>
 
-<div class="container">
+<div class="hero">
+  <h1>Willkommen bei Emergency Nord</h1>
+  <p>Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.</p>
+</div>
 
-  <section id="welcome">
-    <h1>Willkommen bei Emergency Nord!</h1>
-    <p>
-      Hier findest du alle wichtigen Infos zum Spiel und wie du Teil der Community wirst.
-    </p>
-  </section>
+<div class="container">
 
   <section id="about">
     <h2>Über das Spiel</h2>
-    <p>
-      Emergency Nord ist ein taktisches Einsatzleiterspiel, bei dem du Feuerwehr, Polizei und Rettungsdienst koordinierst.
-    </p>
+    <p>Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. 
+    Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.</p>
   </section>
 
   <section id="rules">
     <h2>Regeln</h2>
     <ul>
-      <li>Respektiere andere Spieler und das Team.</li>
-      <li>Kein Cheaten, Hacken oder Exploiten.</li>
-      <li>Keine Beleidigungen oder toxisches Verhalten.</li>
-      <li>Halte dich an die Anweisungen der Admins.</li>
+      <li>Respektiere alle Spieler und das Team.</li>
+      <li>Kein Cheaten oder Ausnutzen von Bugs.</li>
+      <li>Beleidigungen und toxisches Verhalten sind tabu.</li>
+      <li>Folge den Anweisungen der Admins.</li>
       <li>Spam und Werbung sind verboten.</li>
     </ul>
   </section>
 
-  <section id="entbann">
-    <h2>Entbann-Antrag</h2>
-    <div id="toggleEntbann">Entbann-Antrag öffnen / schließen</div>
-    <form id="entbannForm" action="https://formspree.io/f/xanbvnyv" method="POST">
-      <input
-        type="text"
-        name="username"
-        placeholder="Spielername (z.B. MaxMustermann)"
-        required
-        autocomplete="off"
-      />
-      <textarea
-        name="grund"
-        placeholder="Grund des Banns (z.B. Regelverstoß, Cheaten)"
-        rows="3"
-        required
-      ></textarea>
-      <textarea
-        name="nachricht"
-        placeholder="Warum möchtest du entbannt werden? Erkläre deinen Fall ausführlich."
-        rows="5"
-        required
-      ></textarea>
-      <button type="submit">Absenden</button>
-    </form>
-    <div class="success-message" id="successMessage" style="display:none; color: green; margin-top: 1rem;">
-      ✅ Antrag erfolgreich gesendet!
+  <section id="forms">
+    <h2>Formulare</h2>
+
+    <!-- Entbann-Antrag -->
+    <div>
+      <div class="toggle-link" onclick="toggleForm('entbannForm')">Entbann-Antrag öffnen / schließen</div>
+      <form id="entbannForm" class="card" action="https://formspree.io/f/xanbvnyv" method="POST" style="display:none;">
+        <input type="text" name="username" placeholder="Spielername" required />
+        <textarea name="grund" placeholder="Grund des Banns" rows="3" required></textarea>
+        <textarea name="nachricht" placeholder="Warum möchtest du entbannt werden?" rows="5" required></textarea>
+        <button type="submit">Absenden</button>
+      </form>
+      <div id="successEntbann" style="display:none; color:green;">✅ Antrag erfolgreich gesendet!</div>
     </div>
+
+    <!-- Bug-Report -->
+    <div style="margin-top:2rem;">
+      <div class="toggle-link" onclick="toggleForm('bugForm')">Bug-Report öffnen / schließen</div>
+      <form id="bugForm" class="card" action="https://formspree.io/f/xpwlbwqq" method="POST" style="display:none;">
+        <input type="text" name="username" placeholder="Spielername" required />
+        <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required />
+        <textarea name="beschreibung" placeholder="Bugbeschreibung" rows="5" required></textarea>
+        <button type="submit">Absenden</button>
+      </form>
+      <div id="successBug" style="display:none; color:green;">✅ Bug-Report erfolgreich gesendet!</div>
+    </div>
+
   </section>
 
 </div>
 
 <footer>
-  &copy; 2025 Emergency Nord | <a href="https://discord.gg/3btR6kzq" target="_blank" rel="noopener noreferrer">Discord Server</a>
+  &copy; 2025 Emergency Nord | <a href="https://discord.gg/3btR6kzq" target="_blank">Discord Server</a>
 </footer>
 
 <script>
-  const toggle = document.getElementById('toggleEntbann');
-  const form = document.getElementById('entbannForm');
-  const successMessage = document.getElementById('successMessage');
+function toggleForm(id) {
+  const form = document.getElementById(id);
+  form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+}
 
-  toggle.addEventListener('click', () => {
-    if(form.style.display === 'none' || form.style.display === '') {
-      form.style.display = 'block';
-      successMessage.style.display = 'none';
-    } else {
-      form.style.display = 'none';
-    }
-  });
+// Entbann-Antrag Submit
+document.getElementById('entbannForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
+  if (response.ok) {
+    this.reset();
+    document.getElementById('successEntbann').style.display = 'block';
+  } else {
+    alert('Fehler beim Senden.');
+  }
+});
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: { Accept: 'application/json' },
-    });
-
-    if (response.ok) {
-      form.reset();
-      successMessage.style.display = 'block';
-    } else {
-      alert('Fehler beim Senden. Bitte versuche es später erneut.');
-    }
-  });
+// Bug-Report Submit
+document.getElementById('bugForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
+  if (response.ok) {
+    this.reset();
+    document.getElementById('successBug').style.display = 'block';
+  } else {
+    alert('Fehler beim Senden.');
+  }
+});
 </script>
 
 </body>

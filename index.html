@@ -42,9 +42,26 @@
     margin: 0;
     padding: 0;
   }
-  nav ul li a {
+  nav ul li a, nav ul li button {
     color: #a7f3d0;
     font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    font-family: inherit;
+  }
+  nav ul li button:hover, nav ul li a:hover {
+    text-decoration: underline;
+  }
+
+  /* Sprachswitcher */
+  #langSwitch {
+    cursor: pointer;
+    color: #a7f3d0;
+    font-weight: 700;
+    font-size: 1rem;
   }
 
   /* Hero-Bereich */
@@ -119,12 +136,26 @@
     font-size: 0.9rem;
   }
 
-  /* Toggle Link */
-  .toggle-link {
-    color: #2563eb;
-    text-decoration: underline;
+  /* Forms Auswahl-Buttons */
+  #formSelector {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  #formSelector button {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    background-color: #2563eb;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+  #formSelector button:hover,
+  #formSelector button.active {
+    background-color: #1d3557;
   }
 </style>
 </head>
@@ -133,103 +164,219 @@
 <nav>
   <div class="logo">Emergency Nord</div>
   <ul>
-    <li><a href="#about">Über uns</a></li>
-    <li><a href="#rules">Regeln</a></li>
-    <li><a href="#forms">Formulare</a></li>
-    <li><a href="https://discord.gg/3btR6kzq" target="_blank">Discord</a></li>
+    <li><a href="#about" data-key="about">Über uns</a></li>
+    <li><a href="#rules" data-key="rules">Regeln</a></li>
+    <li><button id="openFormsBtn" data-key="forms">Formulare</button></li>
   </ul>
+  <div id="langSwitch" title="Sprache wechseln">DE</div>
 </nav>
 
 <div class="hero">
-  <h1>Willkommen bei Emergency Nord</h1>
-  <p>Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.</p>
+  <h1 data-key="welcomeTitle">Willkommen bei Emergency Nord</h1>
+  <p data-key="welcomeText">Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.</p>
 </div>
 
 <div class="container">
 
   <section id="about">
-    <h2>Über das Spiel</h2>
-    <p>Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. 
-    Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.</p>
+    <h2 data-key="aboutTitle">Über das Spiel</h2>
+    <p data-key="aboutText">
+      Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. 
+      Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.
+    </p>
   </section>
 
   <section id="rules">
-    <h2>Regeln</h2>
+    <h2 data-key="rulesTitle">Regeln</h2>
     <ul>
-      <li>Respektiere alle Spieler und das Team.</li>
-      <li>Kein Cheaten oder Ausnutzen von Bugs.</li>
-      <li>Beleidigungen und toxisches Verhalten sind tabu.</li>
-      <li>Folge den Anweisungen der Admins.</li>
-      <li>Spam und Werbung sind verboten.</li>
+      <li data-key="rule1">Respektiere alle Spieler und das Team.</li>
+      <li data-key="rule2">Kein Cheaten oder Ausnutzen von Bugs.</li>
+      <li data-key="rule3">Beleidigungen und toxisches Verhalten sind tabu.</li>
+      <li data-key="rule4">Folge den Anweisungen der Admins.</li>
+      <li data-key="rule5">Spam und Werbung sind verboten.</li>
     </ul>
   </section>
 
-  <section id="forms">
-    <h2>Formulare</h2>
+  <!-- Formulare Bereich, zunächst verborgen -->
+  <section id="forms" style="display:none;">
+    <h2 data-key="formsTitle">Formulare</h2>
 
-    <!-- Entbann-Antrag -->
-    <div>
-      <div class="toggle-link" onclick="toggleForm('entbannForm')">Entbann-Antrag öffnen / schließen</div>
-      <form id="entbannForm" class="card" action="https://formspree.io/f/xanbvnyv" method="POST" style="display:none;">
-        <input type="text" name="username" placeholder="Spielername" required />
-        <textarea name="grund" placeholder="Grund des Banns" rows="3" required></textarea>
-        <textarea name="nachricht" placeholder="Warum möchtest du entbannt werden?" rows="5" required></textarea>
-        <button type="submit">Absenden</button>
-      </form>
-      <div id="successEntbann" style="display:none; color:green;">✅ Antrag erfolgreich gesendet!</div>
+    <div id="formSelector">
+      <button id="btnUnban" class="active" data-key="unbanRequest">Unban Request</button>
+      <button id="btnBug">Report a Bug</button>
     </div>
 
-    <!-- Bug-Report -->
-    <div style="margin-top:2rem;">
-      <div class="toggle-link" onclick="toggleForm('bugForm')">Bug-Report öffnen / schließen</div>
-      <form id="bugForm" class="card" action="https://formspree.io/f/xpwlbwqq" method="POST" style="display:none;">
-        <input type="text" name="username" placeholder="Spielername" required />
-        <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required />
-        <textarea name="beschreibung" placeholder="Bugbeschreibung" rows="5" required></textarea>
-        <button type="submit">Absenden</button>
-      </form>
-      <div id="successBug" style="display:none; color:green;">✅ Bug-Report erfolgreich gesendet!</div>
-    </div>
+    <form id="unbanForm" class="card" action="https://formspree.io/f/xanbvnyv" method="POST">
+      <input type="text" name="username" placeholder="Spielername" required data-key-placeholder="username" />
+      <textarea name="grund" placeholder="Grund des Banns" rows="3" required data-key-placeholder="banReason"></textarea>
+      <textarea name="nachricht" placeholder="Warum möchtest du entbannt werden?" rows="5" required data-key-placeholder="unbanReason"></textarea>
+      <button type="submit" data-key="send">Absenden</button>
+    </form>
 
+    <form id="bugForm" class="card" action="https://formspree.io/f/xpwlbwqq" method="POST" style="display:none;">
+      <input type="text" name="username" placeholder="Spielername" required data-key-placeholder="username" />
+      <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required data-key-placeholder="platform" />
+      <textarea name="beschreibung" placeholder="Bugbeschreibung" rows="5" required data-key-placeholder="bugDescription"></textarea>
+      <button type="submit" data-key="send">Absenden</button>
+    </form>
+
+    <div id="successUnban" style="display:none; color:green; margin-top:1rem;">✅ Antrag erfolgreich gesendet!</div>
+    <div id="successBug" style="display:none; color:green; margin-top:1rem;">✅ Bug-Report erfolgreich gesendet!</div>
   </section>
 
 </div>
 
 <footer>
-  &copy; 2025 Emergency Nord | <a href="https://discord.gg/3btR6kzq" target="_blank">Discord Server</a>
+  &copy; 2025 Emergency Nord | <a href="https://discord.gg/3btR6kzq" target="_blank" data-key="discord">Discord Server</a>
 </footer>
 
 <script>
-function toggleForm(id) {
-  const form = document.getElementById(id);
-  form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
-}
+  // Sprachen-Text (DE & EN)
+  const translations = {
+    de: {
+      about: "Über uns",
+      rules: "Regeln",
+      forms: "Formulare",
+      welcomeTitle: "Willkommen bei Emergency Nord",
+      welcomeText: "Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.",
+      aboutTitle: "Über das Spiel",
+      aboutText: "Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.",
+      rulesTitle: "Regeln",
+      rule1: "Respektiere alle Spieler und das Team.",
+      rule2: "Kein Cheaten oder Ausnutzen von Bugs.",
+      rule3: "Beleidigungen und toxisches Verhalten sind tabu.",
+      rule4: "Folge den Anweisungen der Admins.",
+      rule5: "Spam und Werbung sind verboten.",
+      formsTitle: "Formulare",
+      unbanRequest: "Unban Request",
+      send: "Absenden",
+      username: "Spielername",
+      banReason: "Grund des Banns",
+      unbanReason: "Warum möchtest du entbannt werden?",
+      platform: "Plattform (PC, Konsole, etc.)",
+      bugDescription: "Bugbeschreibung",
+      discord: "Discord Server"
+    },
+    en: {
+      about: "About Us",
+      rules: "Rules",
+      forms: "Forms",
+      welcomeTitle: "Welcome to Emergency Nord",
+      welcomeText: "Your mission starts here – Firefighters, Police & EMS in an exciting simulation.",
+      aboutTitle: "About the Game",
+      aboutText: "Emergency Nord is a community project simulating realistic missions in a virtual world. Put out fires, solve crimes, save lives – the action is yours.",
+      rulesTitle: "Rules",
+      rule1: "Respect all players and the team.",
+      rule2: "No cheating or exploiting bugs.",
+      rule3: "Insults and toxic behavior are forbidden.",
+      rule4: "Follow admin instructions.",
+      rule5: "Spam and advertising are prohibited.",
+      formsTitle: "Forms",
+      unbanRequest: "Unban Request",
+      send: "Send",
+      username: "Username",
+      banReason: "Reason for ban",
+      unbanReason: "Why do you want to be unbanned?",
+      platform: "Platform (PC, Console, etc.)",
+      bugDescription: "Bug description",
+      discord: "Discord Server"
+    }
+  };
 
-// Entbann-Antrag Submit
-document.getElementById('entbannForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-  if (response.ok) {
-    this.reset();
-    document.getElementById('successEntbann').style.display = 'block';
-  } else {
-    alert('Fehler beim Senden.');
-  }
-});
+  // Aktuelle Sprache (default Deutsch)
+  let currentLang = 'de';
 
-// Bug-Report Submit
-document.getElementById('bugForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-  if (response.ok) {
-    this.reset();
-    document.getElementById('successBug').style.display = 'block';
-  } else {
-    alert('Fehler beim Senden.');
+  // Sprachwechsel Funktion
+  function switchLanguage() {
+    currentLang = currentLang === 'de' ? 'en' : 'de';
+    document.getElementById('langSwitch').textContent = currentLang.toUpperCase();
+
+    // Alle Elemente mit data-key updaten
+    document.querySelectorAll('[data-key]').forEach(el => {
+      el.textContent = translations[currentLang][el.getAttribute('data-key')] || el.textContent;
+    });
+    // Placeholder update
+    document.querySelectorAll('[data-key-placeholder]').forEach(el => {
+      el.placeholder = translations[currentLang][el.getAttribute('data-key-placeholder')] || el.placeholder;
+    });
   }
-});
+
+  document.getElementById('langSwitch').addEventListener('click', switchLanguage);
+
+  // Forms-Bereich öffnen/schließen
+  const openFormsBtn = document.getElementById('openFormsBtn');
+  const formsSection = document.getElementById('forms');
+  openFormsBtn.addEventListener('click', () => {
+    if (formsSection.style.display === 'none' || formsSection.style.display === '') {
+      formsSection.style.display = 'block';
+      // Standard: Unban Form zeigen
+      showForm('unbanForm');
+    } else {
+      formsSection.style.display = 'none';
+    }
+  });
+
+  // Formular Auswahl Buttons
+  const btnUnban = document.getElementById('btnUnban');
+  const btnBug = document.getElementById('btnBug');
+  const unbanForm = document.getElementById('unbanForm');
+  const bugForm = document.getElementById('bugForm');
+
+  function showForm(formId) {
+    if (formId === 'unbanForm') {
+      unbanForm.style.display = 'block';
+      bugForm.style.display = 'none';
+      btnUnban.classList.add('active');
+      btnBug.classList.remove('active');
+      hideSuccessMessages();
+    } else {
+      unbanForm.style.display = 'none';
+      bugForm.style.display = 'block';
+      btnUnban.classList.remove('active');
+      btnBug.classList.add('active');
+      hideSuccessMessages();
+    }
+  }
+
+  btnUnban.addEventListener('click', () => showForm('unbanForm'));
+  btnBug.addEventListener('click', () => showForm('bugForm'));
+
+  // Erfolgsmeldungen verstecken
+  function hideSuccessMessages() {
+    document.getElementById('successUnban').style.display = 'none';
+    document.getElementById('successBug').style.display = 'none';
+  }
+
+  // Entbann-Antrag Submit
+  unbanForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
+    if (response.ok) {
+      this.reset();
+      hideSuccessMessages();
+      document.getElementById('successUnban').style.display = 'block';
+    } else {
+      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
+    }
+  });
+
+  // Bug-Report Submit
+  bugForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
+    if (response.ok) {
+      this.reset();
+      hideSuccessMessages();
+      document.getElementById('successBug').style.display = 'block';
+    } else {
+      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
+    }
+  });
+
+  // Initial Language Setup
+  switchLanguage();
 </script>
 
 </body>

@@ -12,6 +12,7 @@
     color: #000000;
   }
 
+  /* Navigation */
   nav {
     background-color: #000000;
     padding: 10px 20px;
@@ -28,7 +29,7 @@
     font-size: 28px;
   }
   nav .logo img {
-    height: 80px;
+    height: 60px;
     width: auto;
   }
   nav ul {
@@ -48,13 +49,15 @@
     text-decoration: underline;
   }
 
+  /* Header mit Hintergrundbild */
   header {
+    background: url("https://cdn.pixabay.com/photo/2017/05/31/18/39/police-car-2369183_960_720.jpg") center/cover no-repeat;
+    padding: 80px 20px;
     text-align: center;
-    padding: 40px 20px;
-    background-color: #f9f9f9;
+    color: white;
   }
   header img {
-    height: 150px;
+    height: 120px;
     width: auto;
     margin-bottom: 20px;
   }
@@ -62,12 +65,18 @@
     font-size: 3rem;
     margin-bottom: 10px;
   }
+  header p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
+  /* Kartenbereich */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     gap: 30px;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 40px auto;
     padding: 0 20px;
   }
@@ -75,33 +84,40 @@
     background-color: #000000;
     color: #ffffff;
     border-radius: 8px;
-    padding: 20px;
+    overflow: hidden;
     text-align: center;
   }
   .card img {
-    max-width: 100%;
-    height: 150px;
+    width: 100%;
+    height: 180px;
     object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 15px;
   }
-  .card h3 {
-    margin: 0;
-    font-size: 1.3rem;
+  .card label {
+    display: block;
+    padding: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .card label:hover {
+    background-color: #222;
   }
 
-  form {
-    max-width: 500px;
-    margin: 0 auto 60px;
-    background-color: #000000;
-    color: #ffffff;
-    padding: 25px 30px;
-    border-radius: 8px;
+  /* Formular aufklappen */
+  input[type="checkbox"] {
+    display: none;
+  }
+  .form-content {
+    display: none;
+    padding: 15px;
+    background-color: #111;
+  }
+  input[type="checkbox"]:checked + .form-content {
+    display: block;
   }
   form input, form textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -111,21 +127,21 @@
     color: #000000;
     font-weight: bold;
     border: none;
-    padding: 12px 20px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 1rem;
   }
   form button:hover {
-    background-color: #dddddd;
+    background-color: #ddd;
   }
 
   footer {
     text-align: center;
-    padding: 15px 10px;
+    padding: 15px;
     background-color: #000000;
     color: #ffffff;
     font-size: 0.9rem;
+    margin-top: 40px;
   }
 </style>
 </head>
@@ -137,72 +153,66 @@
     Emergency Nord
   </div>
   <ul>
-    <li><a href="#about">Über uns</a></li>
-    <li><a href="#rules">Regeln</a></li>
-    <li><a href="#formular">Formulare</a></li>
+    <li><a href="#home">Start</a></li>
+    <li><a href="#forms">Formulare</a></li>
+    <li><a href="#contact">Kontakt</a></li>
   </ul>
 </nav>
 
-<header>
+<header id="home">
   <img src="Logo.png" alt="Emergency Nord Logo">
   <h1>Willkommen bei Emergency Nord</h1>
   <p>Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.</p>
 </header>
 
-<section id="about" style="max-width:900px; margin: 0 auto 40px; padding: 0 20px;">
-  <h2>Über das Spiel</h2>
-  <p>
-    Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.
-  </p>
-</section>
-
-<section id="rules" style="max-width:900px; margin: 0 auto 60px; padding: 0 20px;">
-  <h2>Regeln</h2>
-  <ul>
-    <li>Respektiere alle Spieler und das Team.</li>
-    <li>Kein Cheaten oder Ausnutzen von Bugs.</li>
-    <li>Beleidigungen und toxisches Verhalten sind tabu.</li>
-    <li>Folge den Anweisungen der Admins.</li>
-    <li>Spam und Werbung sind verboten.</li>
-  </ul>
-</section>
-
-<section class="grid">
+<section id="forms" class="grid">
+  <!-- Unban Request -->
   <div class="card">
-    <img src="https://cdn.pixabay.com/photo/2017/05/31/18/39/police-car-2369183_960_720.jpg" alt="Unban Request">
-    <h3>Unban Request</h3>
-    <form action="https://formspree.io/f/xanbvnyv" method="POST">
-      <input type="text" name="spielername" placeholder="Spielername" required>
-      <textarea name="grund" rows="3" placeholder="Grund des Banns" required></textarea>
-      <textarea name="nachricht" rows="5" placeholder="Warum möchtest du entbannt werden?" required></textarea>
-      <button type="submit">Absenden</button>
-    </form>
+    <img src="https://cdn.pixabay.com/photo/2017/01/23/19/45/police-2003239_960_720.jpg" alt="Unban">
+    <label for="unban">Unban Request</label>
+    <input type="checkbox" id="unban">
+    <div class="form-content">
+      <form action="https://formspree.io/f/xanbvnyv" method="POST">
+        <input type="text" name="spielername" placeholder="Spielername" required>
+        <textarea name="grund" rows="3" placeholder="Grund des Banns" required></textarea>
+        <textarea name="nachricht" rows="5" placeholder="Warum möchtest du entbannt werden?" required></textarea>
+        <button type="submit">Absenden</button>
+      </form>
+    </div>
   </div>
 
+  <!-- Bug melden -->
   <div class="card">
     <img src="https://cdn.pixabay.com/photo/2018/09/13/10/09/bug-3676660_960_720.jpg" alt="Bug melden">
-    <h3>Bug melden</h3>
-    <form action="https://formspree.io/f/xpwlbwqq" method="POST">
-      <input type="text" name="spielername" placeholder="Spielername" required>
-      <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required>
-      <textarea name="beschreibung" rows="5" placeholder="Bugbeschreibung" required></textarea>
-      <button type="submit">Absenden</button>
-    </form>
+    <label for="bug">Bug melden</label>
+    <input type="checkbox" id="bug">
+    <div class="form-content">
+      <form action="https://formspree.io/f/xpwlbwqq" method="POST">
+        <input type="text" name="spielername" placeholder="Spielername" required>
+        <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required>
+        <textarea name="beschreibung" rows="5" placeholder="Bugbeschreibung" required></textarea>
+        <button type="submit">Absenden</button>
+      </form>
+    </div>
   </div>
 
+  <!-- Spieler melden -->
   <div class="card">
-    <img src="https://cdn.pixabay.com/photo/2017/01/23/19/45/police-2003239_960_720.jpg" alt="Spieler melden">
-    <h3>Spieler melden</h3>
-    <form action="https://formspree.io/f/mwpqyplb" method="POST">
-      <input type="text" name="melder" placeholder="Dein Spielername" required>
-      <input type="text" name="gemeldeter" placeholder="Spielername des Gemeldeten" required>
-      <textarea name="grund" rows="5" placeholder="Grund der Meldung" required></textarea>
-      <button type="submit">Absenden</button>
-    </form>
+    <img src="https://cdn.pixabay.com/photo/2017/08/06/10/58/police-2597376_960_720.jpg" alt="Spieler melden">
+    <label for="report">Spieler melden</label>
+    <input type="checkbox" id="report">
+    <div class="form-content">
+      <form action="https://formspree.io/f/mwpqyplb" method="POST">
+        <input type="text" name="melder" placeholder="Dein Spielername" required>
+        <input type="text" name="gemeldeter" placeholder="Spielername des Gemeldeten" required>
+        <textarea name="grund" rows="5" placeholder="Grund der Meldung" required></textarea>
+        <button type="submit">Absenden</button>
+      </form>
+    </div>
   </div>
 </section>
 
-<footer>
+<footer id="contact">
   &copy; 2025 Emergency Nord – Alle Rechte vorbehalten
 </footer>
 

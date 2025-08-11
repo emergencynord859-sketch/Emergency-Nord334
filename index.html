@@ -5,220 +5,207 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Emergency Nord - Startseite</title>
 <style>
-  /* Reset & Grund */
-  * {
-    box-sizing: border-box;
-  }
   body {
-    margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #fff;
-    color: #000;
-    line-height: 1.5;
+    margin:0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff; color: #000;
   }
-
-  /* Header */
   header {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 80px 20px 40px;
+    background:#000; color:#fff; padding: 60px 20px; text-align:center;
   }
   header h1 {
-    margin: 0 0 10px;
+    margin:0 0 10px;
     font-size: 3rem;
   }
   header p {
+    margin:0;
     font-size: 1.3rem;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.4;
   }
-
-  /* Zweisprachiger Willkommens-Text */
-  .welcome-text {
-    max-width: 800px;
-    margin: 0 auto 50px;
-    text-align: center;
+  /* Sprach-Umschalter */
+  .lang-switch {
+    position: fixed;
+    top: 15px;
+    right: 20px;
   }
-  .welcome-text p {
-    margin: 12px 0;
-    font-size: 1.1rem;
+  .lang-switch button {
+    background: #000;
+    color:#fff;
+    border:none;
+    margin-left: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 6px;
   }
-  .welcome-text p.english {
-    color: #555;
-    font-style: italic;
+  .lang-switch button.active {
+    background: #fff;
+    color:#000;
+    border: 2px solid #000;
   }
-
-  /* Grid für Karten */
+  /* Grid */
   .grid {
     max-width: 1100px;
-    margin: 0 auto 60px;
+    margin: 40px auto 80px;
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
     gap: 30px;
     padding: 0 20px;
   }
-
-  /* Karten Design */
   .card {
     background: #000;
     color: #fff;
     border-radius: 12px;
-    cursor: pointer;
     padding: 30px 20px;
-    transition: background-color 0.3s ease;
-    user-select: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
   }
   .card:hover {
     background: #222;
   }
   .card h2 {
-    margin-top: 0;
+    margin: 0 0 10px;
     font-size: 1.8rem;
   }
   .card p {
-    font-size: 1rem;
-    margin-top: 10px;
+    margin: 0;
     color: #ccc;
-  }
-
-  /* Versteckte Checkbox für Toggle */
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  /* Formular Container */
-  .form-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-  }
-
-  /* Formular sichtbar wenn Checkbox gecheckt */
-  input[type="checkbox"]:checked + .form-content {
-    max-height: 600px; /* groß genug für das Formular */
-    margin-top: 20px;
-  }
-
-  /* Formular Styling */
-  form {
-    background: #111;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  form input, form textarea {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 6px;
     font-size: 1rem;
   }
-  form textarea {
-    resize: vertical;
-    min-height: 90px;
-  }
-  form button {
-    background: #fff;
-    color: #000;
-    font-weight: 700;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  form button:hover {
-    background-color: #ddd;
-  }
-
-  /* Footer */
   footer {
-    text-align: center;
-    padding: 15px;
     background: #000;
     color: #fff;
+    text-align: center;
+    padding: 15px;
     font-size: 0.9rem;
-  }
-
-  /* Responsive kleiner Text */
-  @media (max-width: 400px) {
-    header h1 {
-      font-size: 2rem;
-    }
-    .card h2 {
-      font-size: 1.4rem;
-    }
   }
 </style>
 </head>
 <body>
 
+<div class="lang-switch" aria-label="Sprachauswahl">
+  <button id="btn-de" class="active" aria-pressed="true">Deutsch</button>
+  <button id="btn-en" aria-pressed="false">English</button>
+</div>
+
 <header>
-  <h1>Emergency Nord</h1>
-  <p>Dein Ort für schnelle Hilfe, Meldungen und Support.</p>
+  <h1 id="title">Emergency Nord</h1>
+  <p id="subtitle">Dein Ort für schnelle Hilfe, Meldungen und Support.</p>
 </header>
 
-<section class="welcome-text">
-  <p>Willkommen auf Emergency Nord – deinem Portal für Anfragen und Meldungen rund um deinen Einsatz.</p>
-  <p class="english">Welcome to Emergency Nord – your portal for requests and reports regarding your missions.</p>
-</section>
+<section class="grid" role="main" aria-label="Auswahlmöglichkeiten">
 
-<section class="grid">
+  <div class="card" data-page="unban.html" tabindex="0" role="button" aria-label="Unban Antrag">
+    <h2 id="card1-title">Unban Antrag</h2>
+    <p id="card1-desc">Deine Entbannung beantragen</p>
+  </div>
 
-  <!-- Unban Request Karte -->
-  <label class="card" for="toggle-unban" tabindex="0" role="button" aria-pressed="false">
-    <h2>Unban Request</h2>
-    <p>Deine Entbannung beantragen / Request your unban.</p>
-    <input type="checkbox" id="toggle-unban" />
-    <div class="form-content" aria-hidden="true">
-      <form action="https://formspree.io/f/xanbvnyv" method="POST">
-        <input type="text" name="spielername" placeholder="Spielername / Username" required />
-        <textarea name="grund" placeholder="Grund des Banns / Reason for ban" required></textarea>
-        <textarea name="nachricht" placeholder="Warum möchtest du entbannt werden? / Why should you be unbanned?" required></textarea>
-        <button type="submit">Absenden / Submit</button>
-      </form>
-    </div>
-  </label>
+  <div class="card" data-page="bug.html" tabindex="0" role="button" aria-label="Bug melden">
+    <h2 id="card2-title">Bug melden</h2>
+    <p id="card2-desc">Fehler melden</p>
+  </div>
 
-  <!-- Bug melden Karte -->
-  <label class="card" for="toggle-bug" tabindex="0" role="button" aria-pressed="false">
-    <h2>Bug melden</h2>
-    <p>Fehler melden / Report a bug.</p>
-    <input type="checkbox" id="toggle-bug" />
-    <div class="form-content" aria-hidden="true">
-      <form action="https://formspree.io/f/xpwlbwqq" method="POST">
-        <input type="text" name="spielername" placeholder="Spielername / Username" required />
-        <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.) / Platform" required />
-        <textarea name="beschreibung" placeholder="Bugbeschreibung / Bug description" required></textarea>
-        <button type="submit">Absenden / Submit</button>
-      </form>
-    </div>
-  </label>
-
-  <!-- Spieler melden Karte -->
-  <label class="card" for="toggle-report" tabindex="0" role="button" aria-pressed="false">
-    <h2>Spieler melden</h2>
-    <p>Verstoß melden / Report a player.</p>
-    <input type="checkbox" id="toggle-report" />
-    <div class="form-content" aria-hidden="true">
-      <form action="https://formspree.io/f/mwpqyplb" method="POST">
-        <input type="text" name="melder" placeholder="Dein Spielername / Your username" required />
-        <input type="text" name="gemeldeter" placeholder="Spielername des Gemeldeten / Reported player username" required />
-        <textarea name="grund" placeholder="Grund der Meldung / Reason for report" required></textarea>
-        <button type="submit">Absenden / Submit</button>
-      </form>
-    </div>
-  </label>
+  <div class="card" data-page="report.html" tabindex="0" role="button" aria-label="Spieler melden">
+    <h2 id="card3-title">Spieler melden</h2>
+    <p id="card3-desc">Verstoß melden</p>
+  </div>
 
 </section>
 
-<footer>
-  &copy; 2025 Emergency Nord – Alle Rechte vorbehalten | All rights reserved
-</footer>
+<footer id="footer">&copy; 2025 Emergency Nord – Alle Rechte vorbehalten</footer>
+
+<script>
+  const langBtnDE = document.getElementById('btn-de');
+  const langBtnEN = document.getElementById('btn-en');
+
+  // Texte auf Deutsch und Englisch
+  const texts = {
+    de: {
+      title: "Emergency Nord",
+      subtitle: "Dein Ort für schnelle Hilfe, Meldungen und Support.",
+      card1_title: "Unban Antrag",
+      card1_desc: "Deine Entbannung beantragen",
+      card2_title: "Bug melden",
+      card2_desc: "Fehler melden",
+      card3_title: "Spieler melden",
+      card3_desc: "Verstoß melden",
+      footer: "© 2025 Emergency Nord – Alle Rechte vorbehalten"
+    },
+    en: {
+      title: "Emergency Nord",
+      subtitle: "Your place for quick help, reports and support.",
+      card1_title: "Unban Request",
+      card1_desc: "Request your unban",
+      card2_title: "Report a Bug",
+      card2_desc: "Report a bug",
+      card3_title: "Report a Player",
+      card3_desc: "Report a violation",
+      footer: "© 2025 Emergency Nord – All rights reserved"
+    }
+  };
+
+  // Funktion zum Wechseln der Sprache
+  function switchLanguage(lang) {
+    document.documentElement.lang = lang;
+
+    document.getElementById('title').textContent = texts[lang].title;
+    document.getElementById('subtitle').textContent = texts[lang].subtitle;
+    document.getElementById('card1-title').textContent = texts[lang].card1_title;
+    document.getElementById('card1-desc').textContent = texts[lang].card1_desc;
+    document.getElementById('card2-title').textContent = texts[lang].card2_title;
+    document.getElementById('card2-desc').textContent = texts[lang].card2_desc;
+    document.getElementById('card3-title').textContent = texts[lang].card3_title;
+    document.getElementById('card3-desc').textContent = texts[lang].card3_desc;
+    document.getElementById('footer').textContent = texts[lang].footer;
+
+    // Buttons Styling & aria-pressed
+    if (lang === 'de') {
+      langBtnDE.classList.add('active');
+      langBtnDE.setAttribute('aria-pressed', 'true');
+      langBtnEN.classList.remove('active');
+      langBtnEN.setAttribute('aria-pressed', 'false');
+    } else {
+      langBtnEN.classList.add('active');
+      langBtnEN.setAttribute('aria-pressed', 'true');
+      langBtnDE.classList.remove('active');
+      langBtnDE.setAttribute('aria-pressed', 'false');
+    }
+
+    // Sprache in URL speichern (Query Parameter)
+    const url = new URL(window.location);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url);
+  }
+
+  // Eventlistener für Sprache
+  langBtnDE.addEventListener('click', () => switchLanguage('de'));
+  langBtnEN.addEventListener('click', () => switchLanguage('en'));
+
+  // Karten Klick - Weiterleitung
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      // Sprache aus URL holen, Default deutsch
+      const urlParams = new URLSearchParams(window.location.search);
+      const lang = urlParams.get('lang') || 'de';
+      // Neue Seite mit Sprache im Querystring öffnen
+      window.location.href = card.dataset.page + '?lang=' + lang;
+    });
+    // Auch Enter-Taste soll Karten anklicken (Accessibility)
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  // Beim Laden Sprache aus URL setzen oder Deutsch als Default
+  window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang') || 'de';
+    switchLanguage(lang);
+  });
+</script>
 
 </body>
 </html>

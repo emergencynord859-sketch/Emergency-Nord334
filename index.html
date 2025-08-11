@@ -1,383 +1,133 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Emergency Nord</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0fdf4; /* helles Grün */
-    color: #1b4332; /* dunkles Grün */
-  }
-  a {
-    color: #2563eb; /* blau */
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emergency Nord - Formulare</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e7f3f7;
+      color: #003366;
+      margin: 2rem;
+    }
 
-  /* Navigation */
-  nav {
-    background-color: #1d3557; /* dunkles Blau */
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-  }
-  nav .logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #a7f3d0; /* hellgrün */
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-  nav ul li a, nav ul li button {
-    color: #a7f3d0;
-    font-weight: 600;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-    font-family: inherit;
-  }
-  nav ul li button:hover, nav ul li a:hover {
-    text-decoration: underline;
-  }
+    h1 {
+      color: #004d40;
+      text-align: center;
+    }
 
-  /* Sprachswitcher */
-  #langSwitch {
-    cursor: pointer;
-    color: #a7f3d0;
-    font-weight: 700;
-    font-size: 1rem;
-  }
+    /* Buttons als Tab-Ersatz */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
 
-  /* Hero-Bereich */
-  .hero {
-    background: linear-gradient(to right, #1d3557, #2a7f62);
-    color: white;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  .hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  .hero p {
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: auto;
-  }
+    .tabs label {
+      background-color: #00796b;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
 
-  /* Container */
-  .container {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
+    .tabs label:hover {
+      background-color: #004d40;
+    }
 
-  section {
-    margin-bottom: 2.5rem;
-  }
-  h2 {
-    color: #1d3557;
-  }
+    /* Radio Inputs verstecken */
+    input[type="radio"] {
+      display: none;
+    }
 
-  /* Karten-Style */
-  .card {
-    background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 1rem;
-  }
+    /* Formular Karten */
+    form {
+      max-width: 500px;
+      margin: 0 auto 2rem auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: none;
+    }
 
-  .card input,
-  .card textarea {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    font-family: inherit;
-  }
-  .card button {
-    background-color: #2a7f62;
-    border: none;
-    color: white;
-    padding: 0.7rem 1.4rem;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .card button:hover {
-    background-color: #1f5c44;
-  }
+    /* Formular anzeigen wenn der entsprechende Radio-Button aktiv */
+    #tab-unban:checked ~ #form-unban,
+    #tab-bug:checked ~ #form-bug,
+    #tab-reportplayer:checked ~ #form-reportplayer {
+      display: block;
+    }
 
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #1d3557;
-    color: #a7f3d0;
-    font-size: 0.9rem;
-  }
+    /* Inputs Styling */
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
 
-  /* Forms Auswahl-Buttons */
-  #formSelector {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  #formSelector button {
-    flex: 1;
-    padding: 0.8rem 1rem;
-    background-color: #2563eb;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  #formSelector button:hover,
-  #formSelector button.active {
-    background-color: #1d3557;
-  }
-</style>
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">Emergency Nord</div>
-  <ul>
-    <li><a href="#about" data-key="about">Über uns</a></li>
-    <li><a href="#rules" data-key="rules">Regeln</a></li>
-    <li><button id="openFormsBtn" data-key="forms">Formulare</button></li>
-  </ul>
-  <div id="langSwitch" title="Sprache wechseln">DE</div>
-</nav>
+  <h1>Emergency Nord - Formulare</h1>
 
-<div class="hero">
-  <h1 data-key="welcomeTitle">Willkommen bei Emergency Nord</h1>
-  <p data-key="welcomeText">Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.</p>
-</div>
+  <!-- Radio Buttons als Tabs -->
+  <div class="tabs">
+    <input type="radio" id="tab-unban" name="formtabs" checked />
+    <label for="tab-unban">Unban Request</label>
 
-<div class="container">
+    <input type="radio" id="tab-bug" name="formtabs" />
+    <label for="tab-bug">Report a Bug</label>
 
-  <section id="about">
-    <h2 data-key="aboutTitle">Über das Spiel</h2>
-    <p data-key="aboutText">
-      Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. 
-      Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.
-    </p>
-  </section>
+    <input type="radio" id="tab-reportplayer" name="formtabs" />
+    <label for="tab-reportplayer">Report Player</label>
+  </div>
 
-  <section id="rules">
-    <h2 data-key="rulesTitle">Regeln</h2>
-    <ul>
-      <li data-key="rule1">Respektiere alle Spieler und das Team.</li>
-      <li data-key="rule2">Kein Cheaten oder Ausnutzen von Bugs.</li>
-      <li data-key="rule3">Beleidigungen und toxisches Verhalten sind tabu.</li>
-      <li data-key="rule4">Folge den Anweisungen der Admins.</li>
-      <li data-key="rule5">Spam und Werbung sind verboten.</li>
-    </ul>
-  </section>
+  <!-- Unban Request Formular -->
+  <form id="form-unban" action="https://formspree.io/f/xanbvnyv" method="POST">
+    <input type="text" name="username" placeholder="Spielername" required />
+    <textarea name="banReason" rows="3" placeholder="Grund des Banns" required></textarea>
+    <textarea name="unbanReason" rows="5" placeholder="Warum möchtest du entbannt werden?" required></textarea>
+    <button type="submit">Absenden</button>
+  </form>
 
-  <!-- Formulare Bereich, zunächst verborgen -->
-  <section id="forms" style="display:none;">
-    <h2 data-key="formsTitle">Formulare</h2>
+  <!-- Report a Bug Formular -->
+  <form id="form-bug" action="https://formspree.io/f/xpwlbwqq" method="POST">
+    <input type="text" name="username" placeholder="Spielername" required />
+    <input type="text" name="platform" placeholder="Plattform (PC, Konsole, etc.)" required />
+    <textarea name="bugDescription" rows="5" placeholder="Bugbeschreibung" required></textarea>
+    <button type="submit">Absenden</button>
+  </form>
 
-    <div id="formSelector">
-      <button id="btnUnban" class="active" data-key="unbanRequest">Unban Request</button>
-      <button id="btnBug">Report a Bug</button>
-    </div>
-
-    <form id="unbanForm" class="card" action="https://formspree.io/f/xanbvnyv" method="POST">
-      <input type="text" name="username" placeholder="Spielername" required data-key-placeholder="username" />
-      <textarea name="grund" placeholder="Grund des Banns" rows="3" required data-key-placeholder="banReason"></textarea>
-      <textarea name="nachricht" placeholder="Warum möchtest du entbannt werden?" rows="5" required data-key-placeholder="unbanReason"></textarea>
-      <button type="submit" data-key="send">Absenden</button>
-    </form>
-
-    <form id="bugForm" class="card" action="https://formspree.io/f/xpwlbwqq" method="POST" style="display:none;">
-      <input type="text" name="username" placeholder="Spielername" required data-key-placeholder="username" />
-      <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required data-key-placeholder="platform" />
-      <textarea name="beschreibung" placeholder="Bugbeschreibung" rows="5" required data-key-placeholder="bugDescription"></textarea>
-      <button type="submit" data-key="send">Absenden</button>
-    </form>
-
-    <div id="successUnban" style="display:none; color:green; margin-top:1rem;">✅ Antrag erfolgreich gesendet!</div>
-    <div id="successBug" style="display:none; color:green; margin-top:1rem;">✅ Bug-Report erfolgreich gesendet!</div>
-  </section>
-
-</div>
-
-<footer>
-  &copy; 2025 Emergency Nord | <a href="https://discord.gg/3btR6kzq" target="_blank" data-key="discord">Discord Server</a>
-</footer>
-
-<script>
-  // Sprachen-Text (DE & EN)
-  const translations = {
-    de: {
-      about: "Über uns",
-      rules: "Regeln",
-      forms: "Formulare",
-      welcomeTitle: "Willkommen bei Emergency Nord",
-      welcomeText: "Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.",
-      aboutTitle: "Über das Spiel",
-      aboutText: "Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.",
-      rulesTitle: "Regeln",
-      rule1: "Respektiere alle Spieler und das Team.",
-      rule2: "Kein Cheaten oder Ausnutzen von Bugs.",
-      rule3: "Beleidigungen und toxisches Verhalten sind tabu.",
-      rule4: "Folge den Anweisungen der Admins.",
-      rule5: "Spam und Werbung sind verboten.",
-      formsTitle: "Formulare",
-      unbanRequest: "Unban Request",
-      send: "Absenden",
-      username: "Spielername",
-      banReason: "Grund des Banns",
-      unbanReason: "Warum möchtest du entbannt werden?",
-      platform: "Plattform (PC, Konsole, etc.)",
-      bugDescription: "Bugbeschreibung",
-      discord: "Discord Server"
-    },
-    en: {
-      about: "About Us",
-      rules: "Rules",
-      forms: "Forms",
-      welcomeTitle: "Welcome to Emergency Nord",
-      welcomeText: "Your mission starts here – Firefighters, Police & EMS in an exciting simulation.",
-      aboutTitle: "About the Game",
-      aboutText: "Emergency Nord is a community project simulating realistic missions in a virtual world. Put out fires, solve crimes, save lives – the action is yours.",
-      rulesTitle: "Rules",
-      rule1: "Respect all players and the team.",
-      rule2: "No cheating or exploiting bugs.",
-      rule3: "Insults and toxic behavior are forbidden.",
-      rule4: "Follow admin instructions.",
-      rule5: "Spam and advertising are prohibited.",
-      formsTitle: "Forms",
-      unbanRequest: "Unban Request",
-      send: "Send",
-      username: "Username",
-      banReason: "Reason for ban",
-      unbanReason: "Why do you want to be unbanned?",
-      platform: "Platform (PC, Console, etc.)",
-      bugDescription: "Bug description",
-      discord: "Discord Server"
-    }
-  };
-
-  // Aktuelle Sprache (default Deutsch)
-  let currentLang = 'de';
-
-  // Sprachwechsel Funktion
-  function switchLanguage() {
-    currentLang = currentLang === 'de' ? 'en' : 'de';
-    document.getElementById('langSwitch').textContent = currentLang.toUpperCase();
-
-    // Alle Elemente mit data-key updaten
-    document.querySelectorAll('[data-key]').forEach(el => {
-      el.textContent = translations[currentLang][el.getAttribute('data-key')] || el.textContent;
-    });
-    // Placeholder update
-    document.querySelectorAll('[data-key-placeholder]').forEach(el => {
-      el.placeholder = translations[currentLang][el.getAttribute('data-key-placeholder')] || el.placeholder;
-    });
-  }
-
-  document.getElementById('langSwitch').addEventListener('click', switchLanguage);
-
-  // Forms-Bereich öffnen/schließen
-  const openFormsBtn = document.getElementById('openFormsBtn');
-  const formsSection = document.getElementById('forms');
-  openFormsBtn.addEventListener('click', () => {
-    if (formsSection.style.display === 'none' || formsSection.style.display === '') {
-      formsSection.style.display = 'block';
-      // Standard: Unban Form zeigen
-      showForm('unbanForm');
-    } else {
-      formsSection.style.display = 'none';
-    }
-  });
-
-  // Formular Auswahl Buttons
-  const btnUnban = document.getElementById('btnUnban');
-  const btnBug = document.getElementById('btnBug');
-  const unbanForm = document.getElementById('unbanForm');
-  const bugForm = document.getElementById('bugForm');
-
-  function showForm(formId) {
-    if (formId === 'unbanForm') {
-      unbanForm.style.display = 'block';
-      bugForm.style.display = 'none';
-      btnUnban.classList.add('active');
-      btnBug.classList.remove('active');
-      hideSuccessMessages();
-    } else {
-      unbanForm.style.display = 'none';
-      bugForm.style.display = 'block';
-      btnUnban.classList.remove('active');
-      btnBug.classList.add('active');
-      hideSuccessMessages();
-    }
-  }
-
-  btnUnban.addEventListener('click', () => showForm('unbanForm'));
-  btnBug.addEventListener('click', () => showForm('bugForm'));
-
-  // Erfolgsmeldungen verstecken
-  function hideSuccessMessages() {
-    document.getElementById('successUnban').style.display = 'none';
-    document.getElementById('successBug').style.display = 'none';
-  }
-
-  // Entbann-Antrag Submit
-  unbanForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-    if (response.ok) {
-      this.reset();
-      hideSuccessMessages();
-      document.getElementById('successUnban').style.display = 'block';
-    } else {
-      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
-    }
-  });
-
-  // Bug-Report Submit
-  bugForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-    if (response.ok) {
-      this.reset();
-      hideSuccessMessages();
-      document.getElementById('successBug').style.display = 'block';
-    } else {
-      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
-    }
-  });
-
-  // Initial Language Setup
-  switchLanguage();
-</script>
+  <!-- Report Player Formular -->
+  <form id="form-reportplayer" action="https://formspree.io/f/mwpqyplb" method="POST">
+    <input type="text" name="reportedPlayer" placeholder="Name des gemeldeten Spielers" required />
+    <input type="text" name="reporter" placeholder="Dein Spielername" required />
+    <textarea name="reportReason" rows="5" placeholder="Grund der Meldung" required></textarea>
+    <button type="submit">Absenden</button>
+  </form>
 
 </body>
 </html>

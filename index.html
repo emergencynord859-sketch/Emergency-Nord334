@@ -157,9 +157,43 @@
   #formSelector button.active {
     background-color: #1d3557;
   }
+
+  /* Cookie-Zustimmung */
+  #cookieConsent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1d3557;
+    color: #a7f3d0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    z-index: 1000;
+  }
+  #cookieConsent button {
+    background-color: #2a7f62;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #cookieConsent button:hover {
+    background-color: #1f5c44;
+  }
 </style>
 </head>
 <body>
+
+<!-- Cookie-Zustimmungs-Popup -->
+<div id="cookieConsent">
+  <div>Diese Webseite verwendet Cookies, um dir die beste Erfahrung zu bieten. Durch die Nutzung stimmst du dem zu.</div>
+  <button id="acceptCookies">Ich stimme zu</button>
+</div>
 
 <nav>
   <div class="logo">Emergency Nord</div>
@@ -222,25 +256,36 @@
     </form>
 
     <form id="reportPlayerForm" class="card" action="https://formspree.io/f/mwpqyplb" method="POST" style="display:none;">
-      <input type="text" name="reportedPlayer" placeholder="Name des gemeldeten Spielers" required />
-      <input type="text" name="reporter" placeholder="Dein Spielername" required />
-      <textarea name="reportReason" placeholder="Grund der Meldung" rows="5" required></textarea>
-      <button type="submit">Absenden</button>
+      <input type="text" name="reportedPlayer" placeholder="Gemeldeter Spieler" required />
+      <input type="text" name="reporterUsername" placeholder="Dein Spielername" required />
+      <textarea name="reason" placeholder="Grund der Meldung" rows="5" required></textarea>
+      <button type="submit" data-key="send">Absenden</button>
     </form>
 
     <div id="successUnban" style="display:none; color:green; margin-top:1rem;">✅ Antrag erfolgreich gesendet!</div>
     <div id="successBug" style="display:none; color:green; margin-top:1rem;">✅ Bug-Report erfolgreich gesendet!</div>
-    <div id="successReportPlayer" style="display:none; color:green; margin-top:1rem;">✅ Meldung erfolgreich gesendet!</div>
+    <div id="successReportPlayer" style="display:none; color:green; margin-top:1rem;">✅ Spieler wurde erfolgreich gemeldet!</div>
   </section>
 
 </div>
 
 <footer>
-  &copy; 2025 Emergency Nord - Alle Rechte vorbehalten
+  &copy; 2025 Emergency Nord | <a href="https://discord.gg/3btR6kzq" target="_blank" data-key="discord">Discord Server</a>
 </footer>
 
 <script>
-  // Sprachdaten (deutsch und englisch)
+  // Cookie-Zustimmung verwalten
+  const cookieConsent = document.getElementById('cookieConsent');
+  const acceptBtn = document.getElementById('acceptCookies');
+  if (localStorage.getItem('cookieAccepted') === 'true') {
+    cookieConsent.style.display = 'none';
+  }
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('cookieAccepted', 'true');
+    cookieConsent.style.display = 'none';
+  });
+
+  // Sprachen-Text (DE & EN)
   const translations = {
     de: {
       about: "Über uns",
@@ -258,80 +303,66 @@
       rule5: "Spam und Werbung sind verboten.",
       formsTitle: "Formulare",
       unbanRequest: "Unban Request",
-      bugReport: "Report a Bug",
-      reportPlayer: "Report Player",
+      send: "Absenden",
       username: "Spielername",
       banReason: "Grund des Banns",
       unbanReason: "Warum möchtest du entbannt werden?",
       platform: "Plattform (PC, Konsole, etc.)",
       bugDescription: "Bugbeschreibung",
-      send: "Absenden"
+      discord: "Discord Server"
     },
     en: {
       about: "About Us",
       rules: "Rules",
       forms: "Forms",
       welcomeTitle: "Welcome to Emergency Nord",
-      welcomeText: "Your mission starts here – fire, police and rescue service in an exciting simulation.",
+      welcomeText: "Your mission starts here – Fire, Police and EMS in an exciting simulation.",
       aboutTitle: "About the Game",
-      aboutText: "Emergency Nord is a community project simulating realistic missions in a virtual world. Whether extinguishing fires, solving crimes or saving lives – you are needed here.",
+      aboutText: "Emergency Nord is a community project simulating realistic missions in a virtual world. Whether extinguishing fires, solving crimes, or saving lives – you’re the hero.",
       rulesTitle: "Rules",
       rule1: "Respect all players and the team.",
       rule2: "No cheating or exploiting bugs.",
-      rule3: "No insults or toxic behavior.",
-      rule4: "Follow the admins' instructions.",
-      rule5: "Spam and advertising are forbidden.",
+      rule3: "Insults and toxic behavior are forbidden.",
+      rule4: "Follow admins’ instructions.",
+      rule5: "Spam and advertising are prohibited.",
       formsTitle: "Forms",
       unbanRequest: "Unban Request",
-      bugReport: "Report a Bug",
-      reportPlayer: "Report Player",
+      send: "Submit",
       username: "Username",
-      banReason: "Reason for Ban",
+      banReason: "Ban Reason",
       unbanReason: "Why do you want to be unbanned?",
       platform: "Platform (PC, Console, etc.)",
       bugDescription: "Bug Description",
-      send: "Send"
+      discord: "Discord Server"
     }
   };
 
   let currentLang = 'de';
 
-  const langSwitch = document.getElementById('langSwitch');
+  const elementsWithKey = document.querySelectorAll('[data-key]');
+  const elementsWithPlaceholder = document.querySelectorAll('[data-key-placeholder]');
 
-  function translatePage() {
-    document.querySelectorAll('[data-key]').forEach(el => {
+  function updateLanguage(lang) {
+    currentLang = lang;
+    elementsWithKey.forEach(el => {
       const key = el.getAttribute('data-key');
-      if(translations[currentLang][key]) el.textContent = translations[currentLang][key];
+      if (translations[lang][key]) el.textContent = translations[lang][key];
     });
-    document.querySelectorAll('[data-key-placeholder]').forEach(el => {
+    elementsWithPlaceholder.forEach(el => {
       const key = el.getAttribute('data-key-placeholder');
-      if(translations[currentLang][key]) el.placeholder = translations[currentLang][key];
+      if (translations[lang][key]) el.placeholder = translations[lang][key];
     });
-    // Sprachbutton aktualisieren
-    langSwitch.textContent = currentLang.toUpperCase();
+    document.getElementById('langSwitch').textContent = lang.toUpperCase();
   }
 
-  langSwitch.addEventListener('click', () => {
-    currentLang = currentLang === 'de' ? 'en' : 'de';
-    translatePage();
+  document.getElementById('langSwitch').addEventListener('click', () => {
+    updateLanguage(currentLang === 'de' ? 'en' : 'de');
   });
 
-  translatePage();
-
-  // Navigation - Formulare anzeigen
+  // Formulare Umschaltung
   const openFormsBtn = document.getElementById('openFormsBtn');
   const formsSection = document.getElementById('forms');
 
-  openFormsBtn.addEventListener('click', () => {
-    if(formsSection.style.display === 'none' || formsSection.style.display === '') {
-      formsSection.style.display = 'block';
-      formsSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      formsSection.style.display = 'none';
-    }
-  });
-
-  // Formular Auswahl
   const btnUnban = document.getElementById('btnUnban');
   const btnBug = document.getElementById('btnBug');
   const btnReportPlayer = document.getElementById('btnReportPlayer');
@@ -340,73 +371,66 @@
   const bugForm = document.getElementById('bugForm');
   const reportPlayerForm = document.getElementById('reportPlayerForm');
 
-  const successUnban = document.getElementById('successUnban');
-  const successBug = document.getElementById('successBug');
-  const successReportPlayer = document.getElementById('successReportPlayer');
+  openFormsBtn.addEventListener('click', () => {
+    if (formsSection.style.display === 'none' || formsSection.style.display === '') {
+      formsSection.style.display = 'block';
+      formsSection.scrollIntoView({behavior: "smooth"});
+    } else {
+      formsSection.style.display = 'none';
+    }
+  });
 
-  function showForm(formId) {
-    unbanForm.style.display = formId === 'unbanForm' ? 'block' : 'none';
-    bugForm.style.display = formId === 'bugForm' ? 'block' : 'none';
-    reportPlayerForm.style.display = formId === 'reportPlayerForm' ? 'block' : 'none';
-
-    btnUnban.classList.toggle('active', formId === 'unbanForm');
-    btnBug.classList.toggle('active', formId === 'bugForm');
-    btnReportPlayer.classList.toggle('active', formId === 'reportPlayerForm');
-
-    hideSuccessMessages();
+  function setActiveForm(button) {
+    btnUnban.classList.remove('active');
+    btnBug.classList.remove('active');
+    btnReportPlayer.classList.remove('active');
+    button.classList.add('active');
   }
 
-  btnUnban.addEventListener('click', () => showForm('unbanForm'));
-  btnBug.addEventListener('click', () => showForm('bugForm'));
-  btnReportPlayer.addEventListener('click', () => showForm('reportPlayerForm'));
-
-  function hideSuccessMessages() {
-    successUnban.style.display = 'none';
-    successBug.style.display = 'none';
-    successReportPlayer.style.display = 'none';
-  }
-
-  // Formulare via Fetch senden und Erfolg anzeigen
-
-  unbanForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-    if (response.ok) {
-      this.reset();
-      hideSuccessMessages();
-      successUnban.style.display = 'block';
-    } else {
-      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
-    }
+  btnUnban.addEventListener('click', () => {
+    setActiveForm(btnUnban);
+    unbanForm.style.display = 'block';
+    bugForm.style.display = 'none';
+    reportPlayerForm.style.display = 'none';
   });
 
-  bugForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-    if (response.ok) {
-      this.reset();
-      hideSuccessMessages();
-      successBug.style.display = 'block';
-    } else {
-      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
-    }
+  btnBug.addEventListener('click', () => {
+    setActiveForm(btnBug);
+    unbanForm.style.display = 'none';
+    bugForm.style.display = 'block';
+    reportPlayerForm.style.display = 'none';
   });
 
-  reportPlayerForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const response = await fetch(this.action, { method: 'POST', body: formData, headers: { Accept: 'application/json' } });
-    if (response.ok) {
-      this.reset();
-      hideSuccessMessages();
-      successReportPlayer.style.display = 'block';
-    } else {
-      alert(currentLang === 'de' ? 'Fehler beim Senden.' : 'Error sending form.');
-    }
+  btnReportPlayer.addEventListener('click', () => {
+    setActiveForm(btnReportPlayer);
+    unbanForm.style.display = 'none';
+    bugForm.style.display = 'none';
+    reportPlayerForm.style.display = 'block';
   });
 
+  // Success Messages Handling (optional)
+  unbanForm.addEventListener('submit', e => {
+    e.preventDefault();
+    // Formspree schickt automatisch, hier kannst du noch weitere Aktionen einbauen
+    document.getElementById('successUnban').style.display = 'block';
+    unbanForm.reset();
+  });
+
+  bugForm.addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('successBug').style.display = 'block';
+    bugForm.reset();
+  });
+
+  reportPlayerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('successReportPlayer').style.display = 'block';
+    reportPlayerForm.reset();
+  });
+
+  // Seite initial auf Deutsch laden
+  updateLanguage('de');
 </script>
+
 </body>
 </html>

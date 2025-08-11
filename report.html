@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Unban Antrag - Emergency Nord</title>
+<title>Bug melden - Emergency Nord</title>
 <style>
   body {
     margin:0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -89,14 +89,14 @@
 </div>
 
 <header>
-  <h1 id="page-title">Unban Antrag</h1>
+  <h1 id="page-title">Bug melden</h1>
 </header>
 
 <main>
-  <form action="https://formspree.io/f/xanbvnyv" method="POST">
-    <input type="text" name="spielername" placeholder="Spielername" id="input-username" required />
-    <textarea name="grund" placeholder="Grund des Banns" id="input-reason" required></textarea>
-    <textarea name="nachricht" placeholder="Warum möchtest du entbannt werden?" id="input-message" required></textarea>
+  <form action="https://formspree.io/f/xayvwrvk" method="POST">
+    <input type="text" name="titel" placeholder="Kurzer Titel des Bugs" id="input-title" required />
+    <textarea name="beschreibung" placeholder="Beschreibe den Fehler ausführlich" id="input-description" required></textarea>
+    <textarea name="schritte" placeholder="Wie kann man den Fehler reproduzieren?" id="input-steps" required></textarea>
     <button type="submit" id="submit-btn">Absenden</button>
   </form>
 </main>
@@ -109,21 +109,21 @@
 
   const texts = {
     de: {
-      pageTitle: "Unban Antrag",
+      pageTitle: "Bug melden",
       placeholders: {
-        spielername: "Spielername",
-        grund: "Grund des Banns",
-        nachricht: "Warum möchtest du entbannt werden?"
+        titel: "Kurzer Titel des Bugs",
+        beschreibung: "Beschreibe den Fehler ausführlich",
+        schritte: "Wie kann man den Fehler reproduzieren?"
       },
       submit: "Absenden",
       footer: "© 2025 Emergency Nord – Alle Rechte vorbehalten"
     },
     en: {
-      pageTitle: "Unban Request",
+      pageTitle: "Report a Bug",
       placeholders: {
-        spielername: "Username",
-        grund: "Reason for ban",
-        nachricht: "Why should you be unbanned?"
+        titel: "Short title of the bug",
+        beschreibung: "Describe the bug in detail",
+        schritte: "How to reproduce the bug?"
       },
       submit: "Submit",
       footer: "© 2025 Emergency Nord – All rights reserved"
@@ -133,9 +133,9 @@
   function switchLanguage(lang) {
     document.documentElement.lang = lang;
     document.getElementById('page-title').textContent = texts[lang].pageTitle;
-    document.getElementById('input-username').placeholder = texts[lang].placeholders.spielername;
-    document.getElementById('input-reason').placeholder = texts[lang].placeholders.grund;
-    document.getElementById('input-message').placeholder = texts[lang].placeholders.nachricht;
+    document.getElementById('input-title').placeholder = texts[lang].placeholders.titel;
+    document.getElementById('input-description').placeholder = texts[lang].placeholders.beschreibung;
+    document.getElementById('input-steps').placeholder = texts[lang].placeholders.schritte;
     document.getElementById('submit-btn').textContent = texts[lang].submit;
     document.getElementById('footer').textContent = texts[lang].footer;
 
@@ -155,7 +155,6 @@
   langBtnDE.addEventListener('click', () => switchLanguage('de'));
   langBtnEN.addEventListener('click', () => switchLanguage('en'));
 
-  // Sprache aus URL holen
   window.addEventListener('load', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const lang = urlParams.get('lang') || 'de';

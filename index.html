@@ -1,211 +1,41 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Emergency Nord - Startseite</title>
-<style>
-  body {
-    margin:0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #fff; color: #000;
-  }
-  header {
-    background:#000; color:#fff; padding: 60px 20px; text-align:center;
-  }
-  header h1 {
-    margin:0 0 10px;
-    font-size: 3rem;
-  }
-  header p {
-    margin:0;
-    font-size: 1.3rem;
-  }
-  /* Sprach-Umschalter */
-  .lang-switch {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-  }
-  .lang-switch button {
-    background: #000;
-    color:#fff;
-    border:none;
-    margin-left: 10px;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 6px;
-  }
-  .lang-switch button.active {
-    background: #fff;
-    color:#000;
-    border: 2px solid #000;
-  }
-  /* Grid */
-  .grid {
-    max-width: 1100px;
-    margin: 40px auto 80px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 30px;
-    padding: 0 20px;
-  }
-  .card {
-    background: #000;
-    color: #fff;
-    border-radius: 12px;
-    padding: 30px 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease;
-  }
-  .card:hover {
-    background: #222;
-  }
-  .card h2 {
-    margin: 0 0 10px;
-    font-size: 1.8rem;
-  }
-  .card p {
-    margin: 0;
-    color: #ccc;
-    font-size: 1rem;
-  }
-  footer {
-    background: #000;
-    color: #fff;
-    text-align: center;
-    padding: 15px;
-    font-size: 0.9rem;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wartungsarbeiten | Emergency Nord</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        .highlight {
+            color: #00ff99;
+        }
+    </style>
 </head>
 <body>
-
-<div class="lang-switch" aria-label="Sprachauswahl">
-  <button id="btn-de" class="active" aria-pressed="true">Deutsch</button>
-  <button id="btn-en" aria-pressed="false">English</button>
-</div>
-
-<header>
-  <h1 id="title">Emergency Nord</h1>
-  <p id="subtitle">Dein Ort für schnelle Hilfe, Meldungen und Support.</p>
-</header>
-
-<section class="grid" role="main" aria-label="Auswahlmöglichkeiten">
-
-  <div class="card" data-page="unban.html" tabindex="0" role="button" aria-label="Unban Antrag">
-    <h2 id="card1-title">Unban Antrag</h2>
-    <p id="card1-desc">Deine Entbannung beantragen</p>
-  </div>
-
-  <div class="card" data-page="bug.html" tabindex="0" role="button" aria-label="Bug melden">
-    <h2 id="card2-title">Bug melden</h2>
-    <p id="card2-desc">Fehler melden</p>
-  </div>
-
-  <div class="card" data-page="report.html" tabindex="0" role="button" aria-label="Spieler melden">
-    <h2 id="card3-title">Spieler melden</h2>
-    <p id="card3-desc">Verstoß melden</p>
-  </div>
-
-</section>
-
-<footer id="footer">&copy; 2025 Emergency Nord – Alle Rechte vorbehalten</footer>
-
-<script>
-  const langBtnDE = document.getElementById('btn-de');
-  const langBtnEN = document.getElementById('btn-en');
-
-  // Texte auf Deutsch und Englisch
-  const texts = {
-    de: {
-      title: "Emergency Nord",
-      subtitle: "Dein Ort für schnelle Hilfe, Meldungen und Support.",
-      card1_title: "Unban Antrag",
-      card1_desc: "Deine Entbannung beantragen",
-      card2_title: "Bug melden",
-      card2_desc: "Fehler melden",
-      card3_title: "Spieler melden",
-      card3_desc: "Verstoß melden",
-      footer: "© 2025 Emergency Nord – Alle Rechte vorbehalten"
-    },
-    en: {
-      title: "Emergency Nord",
-      subtitle: "Your place for quick help, reports and support.",
-      card1_title: "Unban Request",
-      card1_desc: "Request your unban",
-      card2_title: "Report a Bug",
-      card2_desc: "Report a bug",
-      card3_title: "Report a Player",
-      card3_desc: "Report a violation",
-      footer: "© 2025 Emergency Nord – All rights reserved"
-    }
-  };
-
-  // Funktion zum Wechseln der Sprache
-  function switchLanguage(lang) {
-    document.documentElement.lang = lang;
-
-    document.getElementById('title').textContent = texts[lang].title;
-    document.getElementById('subtitle').textContent = texts[lang].subtitle;
-    document.getElementById('card1-title').textContent = texts[lang].card1_title;
-    document.getElementById('card1-desc').textContent = texts[lang].card1_desc;
-    document.getElementById('card2-title').textContent = texts[lang].card2_title;
-    document.getElementById('card2-desc').textContent = texts[lang].card2_desc;
-    document.getElementById('card3-title').textContent = texts[lang].card3_title;
-    document.getElementById('card3-desc').textContent = texts[lang].card3_desc;
-    document.getElementById('footer').textContent = texts[lang].footer;
-
-    // Buttons Styling & aria-pressed
-    if (lang === 'de') {
-      langBtnDE.classList.add('active');
-      langBtnDE.setAttribute('aria-pressed', 'true');
-      langBtnEN.classList.remove('active');
-      langBtnEN.setAttribute('aria-pressed', 'false');
-    } else {
-      langBtnEN.classList.add('active');
-      langBtnEN.setAttribute('aria-pressed', 'true');
-      langBtnDE.classList.remove('active');
-      langBtnDE.setAttribute('aria-pressed', 'false');
-    }
-
-    // Sprache in URL speichern (Query Parameter)
-    const url = new URL(window.location);
-    url.searchParams.set('lang', lang);
-    window.history.replaceState({}, '', url);
-  }
-
-  // Eventlistener für Sprache
-  langBtnDE.addEventListener('click', () => switchLanguage('de'));
-  langBtnEN.addEventListener('click', () => switchLanguage('en'));
-
-  // Karten Klick - Weiterleitung
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-      // Sprache aus URL holen, Default deutsch
-      const urlParams = new URLSearchParams(window.location.search);
-      const lang = urlParams.get('lang') || 'de';
-      // Neue Seite mit Sprache im Querystring öffnen
-      window.location.href = card.dataset.page + '?lang=' + lang;
-    });
-    // Auch Enter-Taste soll Karten anklicken (Accessibility)
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.click();
-      }
-    });
-  });
-
-  // Beim Laden Sprache aus URL setzen oder Deutsch als Default
-  window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const lang = urlParams.get('lang') || 'de';
-    switchLanguage(lang);
-  });
-</script>
-
+    <div class="container">
+        <h1>🔧 Wartungsarbeiten</h1>
+        <p>Unsere Website <span class="highlight">Emergency Nord</span> wird derzeit gewartet.<br>Bitte schauen Sie später wieder vorbei.</p>
+        
+        <h1>🔧 Maintenance Work</h1>
+        <p>Our website <span class="highlight">Emergency Nord</span> is currently under maintenance.<br>Please check back later.</p>
+    </div>
 </body>
 </html>

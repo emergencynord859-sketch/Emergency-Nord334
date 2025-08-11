@@ -21,8 +21,8 @@
 
   /* Navigation */
   nav {
-    background-color: #1d3557; /* dunkles Blau */
-    padding: 1rem 2rem;
+    background-color: #000000; /* schwarz */
+    padding: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,13 +33,14 @@
   nav .logo {
     font-weight: bold;
     font-size: 1.5rem;
-    color: #a7f3d0; /* hellgrün */
+    color: #ffffff; /* weiß */
     display: flex;
     align-items: center;
+    gap: 10px;
   }
   nav .logo img {
-    height: 40px;
-    margin-right: 10px;
+    height: 60px;
+    width: auto;
   }
   nav ul {
     list-style: none;
@@ -49,7 +50,7 @@
     padding: 0;
   }
   nav ul li a, nav ul li button {
-    color: #a7f3d0;
+    color: #ffffff; /* weiß */
     font-weight: 600;
     background: none;
     border: none;
@@ -65,7 +66,7 @@
   /* Sprachswitcher */
   #langSwitch {
     cursor: pointer;
-    color: #a7f3d0;
+    color: #ffffff; /* weiß */
     font-weight: 700;
     font-size: 1rem;
   }
@@ -101,45 +102,33 @@
     color: #1d3557;
   }
 
-  /* Karten-Style */
+  /* Kacheln Startseite */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 1.5rem;
+  }
   .card {
     background: white;
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 1rem;
-  }
-
-  .card input,
-  .card textarea {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    font-family: inherit;
-  }
-  .card button {
-    background-color: #2a7f62;
-    border: none;
-    color: white;
-    padding: 0.7rem 1.4rem;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .card button:hover {
-    background-color: #1f5c44;
-  }
-
-  /* Footer */
-  footer {
     text-align: center;
-    padding: 1rem;
-    background-color: #1d3557;
-    color: #a7f3d0;
-    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  .card img {
+    max-width: 100%;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+  .card h3 {
+    margin: 0.5rem 0;
+    color: #1d3557;
   }
 
   /* Forms Auswahl-Buttons */
@@ -164,40 +153,37 @@
     background-color: #1d3557;
   }
 
-  /* Startseite Kacheln */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-  .grid-item {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  .grid-item:hover {
-    transform: translateY(-5px);
-  }
-  .grid-item img {
+  /* Formularfelder */
+  form.card input,
+  form.card textarea {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    font-family: inherit;
   }
-  .grid-item-content {
-    padding: 1rem;
-  }
-  .grid-item-content h3 {
-    margin: 0 0 0.5rem 0;
-    color: #1d3557;
-  }
-  .grid-item-content p {
-    margin: 0;
-    color: #2563eb;
+  form.card button {
+    background-color: #2a7f62;
+    border: none;
+    color: white;
+    padding: 0.7rem 1.4rem;
+    border-radius: 4px;
     font-weight: 600;
+    cursor: pointer;
+  }
+  form.card button:hover {
+    background-color: #1f5c44;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #1d3557;
+    color: #a7f3d0;
+    font-size: 0.9rem;
   }
 </style>
 </head>
@@ -242,37 +228,18 @@
     </ul>
   </section>
 
-  <!-- Kacheln auf der Startseite -->
-  <section id="startTiles" style="margin-bottom: 3rem;">
-    <div class="grid">
-      <div class="grid-item" onclick="showFormSection()">
-        <img src="https://via.placeholder.com/400x150?text=Unban+Request" alt="Unban Request" />
-        <div class="grid-item-content">
-          <h3>Unban Request</h3>
-          <p>Stelle deinen Entbannungsantrag hier.</p>
-        </div>
-      </div>
-      <div class="grid-item" onclick="showFormSection('bugForm')">
-        <img src="https://via.placeholder.com/400x150?text=Report+Bug" alt="Report Bug" />
-        <div class="grid-item-content">
-          <h3>Report a Bug</h3>
-          <p>Finde einen Fehler? Melde ihn hier.</p>
-        </div>
-      </div>
-      <div class="grid-item" onclick="showFormSection('reportPlayerForm')">
-        <img src="https://via.placeholder.com/400x150?text=Report+Player" alt="Report Player" />
-        <div class="grid-item-content">
-          <h3>Report Player</h3>
-          <p>Verhalte dich nicht richtig? Melde hier Spieler.</p>
-        </div>
-      </div>
-      <div class="grid-item" onclick="alert('Hier könnte dein nächstes Feature stehen!')">
-        <img src="https://via.placeholder.com/400x150?text=Coming+Soon" alt="Coming Soon" />
-        <div class="grid-item-content">
-          <h3>Coming Soon</h3>
-          <p>Mehr Features folgen bald!</p>
-        </div>
-      </div>
+  <section id="startcards" class="grid" style="margin-bottom: 3rem;">
+    <div class="card" onclick="showForm('unbanForm')">
+      <img src="unban.png" alt="Unban Request" />
+      <h3 data-key="unbanRequest">Unban Request</h3>
+    </div>
+    <div class="card" onclick="showForm('bugForm')">
+      <img src="bug.png" alt="Report a Bug" />
+      <h3 data-key="reportBug">Report a Bug</h3>
+    </div>
+    <div class="card" onclick="showForm('reportForm')">
+      <img src="report.png" alt="Report Player" />
+      <h3 data-key="reportPlayer">Report Player</h3>
     </div>
   </section>
 
@@ -282,8 +249,8 @@
 
     <div id="formSelector">
       <button id="btnUnban" class="active" data-key="unbanRequest">Unban Request</button>
-      <button id="btnBug">Report a Bug</button>
-      <button id="btnReportPlayer">Report Player</button>
+      <button id="btnBug" data-key="reportBug">Report a Bug</button>
+      <button id="btnReport" data-key="reportPlayer">Report Player</button>
     </div>
 
     <form id="unbanForm" class="card" action="https://formspree.io/f/xanbvnyv" method="POST">
@@ -297,171 +264,4 @@
       <input type="text" name="username" placeholder="Spielername" required data-key-placeholder="username" />
       <input type="text" name="plattform" placeholder="Plattform (PC, Konsole, etc.)" required data-key-placeholder="platform" />
       <textarea name="beschreibung" placeholder="Bugbeschreibung" rows="5" required data-key-placeholder="bugDescription"></textarea>
-      <button type="submit" data-key="send">Absenden</button>
-    </form>
-
-    <form id="reportPlayerForm" class="card" action="https://formspree.io/f/xayjvgra" method="POST" style="display:none;">
-      <input type="text" name="reporter" placeholder="Dein Spielername" required data-key-placeholder="yourUsername" />
-      <input type="text" name="reported" placeholder="Spielername des Gemeldeten" required data-key-placeholder="reportedUsername" />
-      <textarea name="grund" placeholder="Grund der Meldung" rows="5" required data-key-placeholder="reportReason"></textarea>
-      <button type="submit" data-key="send">Absenden</button>
-    </form>
-  </section>
-</div>
-
-<footer>
-  &copy; 2025 Emergency Nord. Alle Rechte vorbehalten.
-</footer>
-
-<script>
-  // Sprachdaten
-  const translations = {
-    de: {
-      about: "Über uns",
-      rules: "Regeln",
-      forms: "Formulare",
-      welcomeTitle: "Willkommen bei Emergency Nord",
-      welcomeText: "Dein Einsatz beginnt hier – Feuerwehr, Polizei und Rettungsdienst in einer spannenden Simulation.",
-      aboutTitle: "Über das Spiel",
-      aboutText: "Emergency Nord ist ein Community-Projekt, das realistische Einsätze in einer virtuellen Welt simuliert. Ob Feuer löschen, Verbrechen aufklären oder Leben retten – hier bist du gefragt.",
-      rulesTitle: "Regeln",
-      rule1: "Respektiere alle Spieler und das Team.",
-      rule2: "Kein Cheaten oder Ausnutzen von Bugs.",
-      rule3: "Beleidigungen und toxisches Verhalten sind tabu.",
-      rule4: "Folge den Anweisungen der Admins.",
-      rule5: "Spam und Werbung sind verboten.",
-      formsTitle: "Formulare",
-      unbanRequest: "Unban Request",
-      send: "Absenden",
-      username: "Spielername",
-      banReason: "Grund des Banns",
-      unbanReason: "Warum möchtest du entbannt werden?",
-      platform: "Plattform (PC, Konsole, etc.)",
-      bugDescription: "Bugbeschreibung",
-      yourUsername: "Dein Spielername",
-      reportedUsername: "Spielername des Gemeldeten",
-      reportReason: "Grund der Meldung"
-    },
-    en: {
-      about: "About Us",
-      rules: "Rules",
-      forms: "Forms",
-      welcomeTitle: "Welcome to Emergency Nord",
-      welcomeText: "Your mission starts here – fire, police, and rescue in an exciting simulation.",
-      aboutTitle: "About the Game",
-      aboutText: "Emergency Nord is a community project simulating realistic missions in a virtual world. Whether fighting fires, solving crimes, or saving lives – you are needed here.",
-      rulesTitle: "Rules",
-      rule1: "Respect all players and the team.",
-      rule2: "No cheating or exploiting bugs.",
-      rule3: "No insults or toxic behavior.",
-      rule4: "Follow the admins' instructions.",
-      rule5: "No spam or advertising.",
-      formsTitle: "Forms",
-      unbanRequest: "Unban Request",
-      send: "Send",
-      username: "Username",
-      banReason: "Reason for Ban",
-      unbanReason: "Why do you want to be unbanned?",
-      platform: "Platform (PC, Console, etc.)",
-      bugDescription: "Bug Description",
-      yourUsername: "Your Username",
-      reportedUsername: "Reported Player Username",
-      reportReason: "Reason for Report"
-    }
-  };
-
-  let currentLang = 'de';
-
-  // Sprach wechseln
-  document.getElementById('langSwitch').addEventListener('click', () => {
-    currentLang = currentLang === 'de' ? 'en' : 'de';
-    document.getElementById('langSwitch').textContent = currentLang.toUpperCase();
-    translatePage();
-  });
-
-  // Übersetze die Seite
-  function translatePage() {
-    document.querySelectorAll('[data-key]').forEach(el => {
-      const key = el.getAttribute('data-key');
-      if (translations[currentLang][key]) {
-        el.textContent = translations[currentLang][key];
-      }
-    });
-    document.querySelectorAll('[data-key-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-key-placeholder');
-      if (translations[currentLang][key]) {
-        el.placeholder = translations[currentLang][key];
-      }
-    });
-  }
-
-  translatePage();
-
-  // Formulare anzeigen & Buttons aktivieren
-  const btnUnban = document.getElementById('btnUnban');
-  const btnBug = document.getElementById('btnBug');
-  const btnReportPlayer = document.getElementById('btnReportPlayer');
-  const unbanForm = document.getElementById('unbanForm');
-  const bugForm = document.getElementById('bugForm');
-  const reportPlayerForm = document.getElementById('reportPlayerForm');
-  const formsSection = document.getElementById('forms');
-  const openFormsBtn = document.getElementById('openFormsBtn');
-
-  function setActiveButton(activeBtn) {
-    [btnUnban, btnBug, btnReportPlayer].forEach(btn => {
-      btn.classList.toggle('active', btn === activeBtn);
-    });
-  }
-
-  function showForm(form) {
-    unbanForm.style.display = 'none';
-    bugForm.style.display = 'none';
-    reportPlayerForm.style.display = 'none';
-
-    if (form === 'bugForm') bugForm.style.display = 'block';
-    else if (form === 'reportPlayerForm') reportPlayerForm.style.display = 'block';
-    else unbanForm.style.display = 'block';
-  }
-
-  btnUnban.addEventListener('click', () => {
-    setActiveButton(btnUnban);
-    showForm();
-  });
-  btnBug.addEventListener('click', () => {
-    setActiveButton(btnBug);
-    showForm('bugForm');
-  });
-  btnReportPlayer.addEventListener('click', () => {
-    setActiveButton(btnReportPlayer);
-    showForm('reportPlayerForm');
-  });
-
-  openFormsBtn.addEventListener('click', () => {
-    formsSection.style.display = 'block';
-    window.scrollTo({ top: formsSection.offsetTop, behavior: 'smooth' });
-  });
-
-  // Kachel klick öffnet Formular und scrollt zu Formularen
-  function showFormSection(form) {
-    formsSection.style.display = 'block';
-    window.scrollTo({ top: formsSection.offsetTop, behavior: 'smooth' });
-    if (form) {
-      if (form === 'bugForm') {
-        setActiveButton(btnBug);
-        showForm('bugForm');
-      } else if (form === 'reportPlayerForm') {
-        setActiveButton(btnReportPlayer);
-        showForm('reportPlayerForm');
-      } else {
-        setActiveButton(btnUnban);
-        showForm();
-      }
-    } else {
-      setActiveButton(btnUnban);
-      showForm();
-    }
-  }
-</script>
-
-</body>
-</html>
+      <button type="submit" data-key="send">

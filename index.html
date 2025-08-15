@@ -3,39 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wartungsarbeiten | Emergency Nord</title>
+    <title>Emergency Nord</title>
     <style>
         body {
             background-color: #000;
             color: #fff;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 50px;
+            margin: 0;
+            padding: 0;
         }
-        .container {
-            max-width: 600px;
-            margin: auto;
+        header {
+            background-color: #111;
+            padding: 20px;
+            font-size: 2rem;
+            font-weight: bold;
         }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px;
         }
-        p {
+        .card {
+            background-color: #1a1a1a;
+            padding: 30px;
+            width: 250px;
+            border-radius: 10px;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: white;
             font-size: 1.2rem;
-            margin-bottom: 40px;
+            border: 2px solid #00ff99;
         }
-        .highlight {
-            color: #00ff99;
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #222;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔧 Wartungsarbeiten</h1>
-        <p>Unsere Website <span class="highlight">Emergency Nord</span> wird derzeit gewartet.<br>Bitte schauen Sie später wieder vorbei.</p>
-        
-        <h1>🔧 Maintenance Work</h1>
-        <p>Our website <span class="highlight">Emergency Nord</span> is currently under maintenance.<br>Please check back later.</p>
+
+    <header>Emergency Nord</header>
+
+    <div class="grid">
+        <a href="unban.html" class="card">🚫 Unban Request</a>
+        <a href="report.html" class="card">⚠️ Report Player</a>
+        <a href="bug.html" class="card">🐞 Report a Bug</a>
     </div>
+
 </body>
 </html>

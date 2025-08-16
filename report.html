@@ -1,166 +1,34 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bug melden - Emergency Nord</title>
-<style>
-  body {
-    margin:0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #fff; color: #000;
-  }
-  header {
-    background:#000; color:#fff; padding: 40px 20px; text-align:center;
-  }
-  header h1 {
-    margin:0;
-    font-size: 2.5rem;
-  }
-  main {
-    max-width: 600px;
-    margin: 40px auto 80px;
-    padding: 0 20px;
-  }
-  form {
-    background: #111;
-    padding: 25px;
-    border-radius: 10px;
-  }
-  input, textarea {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-  }
-  textarea {
-    resize: vertical;
-    min-height: 90px;
-  }
-  button {
-    background: #fff;
-    color: #000;
-    font-weight: 700;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  button:hover {
-    background-color: #ddd;
-  }
-  .lang-switch {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-  }
-  .lang-switch button {
-    background: #000;
-    color:#fff;
-    border:none;
-    margin-left: 10px;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 6px;
-  }
-  .lang-switch button.active {
-    background: #fff;
-    color:#000;
-    border: 2px solid #000;
-  }
-  footer {
-    text-align:center;
-    padding:15px;
-    background:#000;
-    color:#fff;
-    font-size: 0.9rem;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Player | Emergency Nord</title>
+    <style>
+        body {background-color:#000;color:#fff;font-family:Arial,sans-serif;text-align:center;margin:0;padding:0;}
+        header {background-color:#111;padding:20px;font-size:2rem;font-weight:bold;}
+        form {background-color:#1a1a1a;padding:30px;margin:40px auto;max-width:400px;border-radius:10px;border:2px solid #00ff99;text-align:left;}
+        input,textarea {width:100%;padding:10px;margin:8px 0;border-radius:5px;border:none;}
+        button {width:100%;padding:12px;background-color:#00ff99;color:#000;font-weight:bold;border:none;border-radius:5px;cursor:pointer;}
+        button:hover {background-color:#00cc7a;}
+    </style>
 </head>
 <body>
 
-<div class="lang-switch" aria-label="Sprachauswahl">
-  <button id="btn-de" class="active" aria-pressed="true">Deutsch</button>
-  <button id="btn-en" aria-pressed="false">English</button>
-</div>
+    <header>Report Player</header>
 
-<header>
-  <h1 id="page-title">Bug melden</h1>
-</header>
+    <form action="https://formspree.io/f/mwpqyplb" method="POST">
+        <label>Your Username:</label>
+        <input type="text" name="your_username" required>
 
-<main>
-  <form action="https://formspree.io/f/xayvwrvk" method="POST">
-    <input type="text" name="titel" placeholder="Kurzer Titel des Bugs" id="input-title" required />
-    <textarea name="beschreibung" placeholder="Beschreibe den Fehler ausführlich" id="input-description" required></textarea>
-    <textarea name="schritte" placeholder="Wie kann man den Fehler reproduzieren?" id="input-steps" required></textarea>
-    <button type="submit" id="submit-btn">Absenden</button>
-  </form>
-</main>
+        <label>Reported Player Username:</label>
+        <input type="text" name="reported_username" required>
 
-<footer id="footer">© 2025 Emergency Nord – Alle Rechte vorbehalten</footer>
+        <label>Reason:</label>
+        <textarea name="reason" rows="5" required></textarea>
 
-<script>
-  const langBtnDE = document.getElementById('btn-de');
-  const langBtnEN = document.getElementById('btn-en');
-
-  const texts = {
-    de: {
-      pageTitle: "Bug melden",
-      placeholders: {
-        titel: "Kurzer Titel des Bugs",
-        beschreibung: "Beschreibe den Fehler ausführlich",
-        schritte: "Wie kann man den Fehler reproduzieren?"
-      },
-      submit: "Absenden",
-      footer: "© 2025 Emergency Nord – Alle Rechte vorbehalten"
-    },
-    en: {
-      pageTitle: "Report a Bug",
-      placeholders: {
-        titel: "Short title of the bug",
-        beschreibung: "Describe the bug in detail",
-        schritte: "How to reproduce the bug?"
-      },
-      submit: "Submit",
-      footer: "© 2025 Emergency Nord – All rights reserved"
-    }
-  };
-
-  function switchLanguage(lang) {
-    document.documentElement.lang = lang;
-    document.getElementById('page-title').textContent = texts[lang].pageTitle;
-    document.getElementById('input-title').placeholder = texts[lang].placeholders.titel;
-    document.getElementById('input-description').placeholder = texts[lang].placeholders.beschreibung;
-    document.getElementById('input-steps').placeholder = texts[lang].placeholders.schritte;
-    document.getElementById('submit-btn').textContent = texts[lang].submit;
-    document.getElementById('footer').textContent = texts[lang].footer;
-
-    if(lang === 'de') {
-      langBtnDE.classList.add('active');
-      langBtnDE.setAttribute('aria-pressed', 'true');
-      langBtnEN.classList.remove('active');
-      langBtnEN.setAttribute('aria-pressed', 'false');
-    } else {
-      langBtnEN.classList.add('active');
-      langBtnEN.setAttribute('aria-pressed', 'true');
-      langBtnDE.classList.remove('active');
-      langBtnDE.setAttribute('aria-pressed', 'false');
-    }
-  }
-
-  langBtnDE.addEventListener('click', () => switchLanguage('de'));
-  langBtnEN.addEventListener('click', () => switchLanguage('en'));
-
-  window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const lang = urlParams.get('lang') || 'de';
-    switchLanguage(lang);
-  });
-</script>
+        <button type="submit">Send</button>
+    </form>
 
 </body>
 </html>
